@@ -12,14 +12,23 @@ import ProductContext from './contexts/ProductContext';
 function App() {
 	const [products] = useState(data);
 	const [cart, setCart] = useState([]);
+	
+
 
 	const addItem = item => {
 		setCart([...cart, item])
 	};
 
+	const removeItem = item => {
+		console.log('item from remove', item)
+		setCart(cart.filter(cartItem => {
+			return cartItem.id !== item.id
+		}))
+	};
+
 	return (
 			<ProductContext.Provider value={{ products, addItem }}>
-				<CartContext.Provider value={cart}>
+				<CartContext.Provider value={{ cart, removeItem }}>
 				<div className="App">
 					<Navigation cart={cart} />
 					{/* Routes */}
